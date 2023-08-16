@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_app/providers/sessionProvider.dart';
+import 'package:inventory_app/providers/shipmentProvider.dart';
 import 'package:inventory_app/routes/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => SessionProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ShipmentProvider(),
         ),
       ],
       child: MaterialApp(
