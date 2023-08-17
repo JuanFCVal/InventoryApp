@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_app/UI/colors.dart';
+import 'package:inventory_app/pages/home/widgets/modal_item.dart';
+import 'package:inventory_app/pages/home/widgets/service_item.dart';
+import 'package:inventory_app/pages/home/widgets/shipment_card.dart';
 import 'package:inventory_app/providers/shipmentProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -7,6 +11,28 @@ import '../../providers/sessionProvider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  openModalPlaneation(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => Container(
+              decoration: BoxDecoration(color: Colors.yellow[100]),
+              child: ListView(
+                children: [
+                  ModalOptionItem(
+                    text: "Estimación de suministros",
+                    icon: Icons.home,
+                    onClick: () {
+                      Navigator.pushNamed(context, 'estimation');
+                    },
+                  ),
+                  ModalOptionItem(
+                    text: "Estimación de costos",
+                    icon: Icons.car_crash,
+                  ),
+                ],
+              ),
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,38 +47,36 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
-                child: Stack(
-                  children: [
-                    Container(
-                      color: Colors.blue,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            CircleAvatar(
-                                maxRadius: 60,
-                                backgroundImage: NetworkImage(sessionProvider
-                                    .currentUser.profilePicture)),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Bienvenido",
-                              style: TextStyles.h1Style(color: Colors.white),
-                            ),
-                            Text(
-                              '${sessionProvider.currentUser.name} ${sessionProvider.currentUser.lastName}',
-                              style: TextStyles.h1Style(color: Colors.white),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                          ],
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorMap.primary,
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20)),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CircleAvatar(
+                            maxRadius: 60,
+                            backgroundImage: NetworkImage(
+                                sessionProvider.currentUser.profilePicture)),
+                        const SizedBox(
+                          height: 0,
                         ),
-                      ),
-                    )
-                  ],
+                        Text(
+                          "Bienvenido",
+                          style: TextStyles.h1Style(color: Colors.white),
+                        ),
+                        Text(
+                          '${sessionProvider.currentUser.name} ${sessionProvider.currentUser.lastName}',
+                          style: TextStyles.h1Style(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               Expanded(
@@ -65,6 +89,9 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text(
                           "Servicios",
                           textAlign: TextAlign.start,
@@ -73,44 +100,29 @@ class HomePage extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              children: [
-                                CircleAvatar(
-                                  maxRadius: 35,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: NetworkImage(
-                                    "https://cdn-icons-png.flaticon.com/512/4838/4838786.png",
-                                  ),
-                                ),
-                                Text("Planeación")
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                CircleAvatar(
-                                  maxRadius: 35,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: NetworkImage(
-                                      "https://cdn-icons-png.flaticon.com/512/7541/7541900.png"),
-                                ),
-                                Text("Abastecimiento")
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                CircleAvatar(
-                                  maxRadius: 35,
-                                  backgroundColor: Colors.transparent,
-                                  backgroundImage: NetworkImage(
-                                      "https://cdn-icons-png.flaticon.com/512/5164/5164023.png"),
-                                ),
-                                Text("Stock")
-                              ],
-                            )
-                          ],
+                        SizedBox(
+                          width: double.infinity,
+                          height: 100,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              ServiceItem(
+                                  title: "Planeación",
+                                  image:
+                                      "https://cdn-icons-png.flaticon.com/512/4838/4838786.png",
+                                  onClick: () => openModalPlaneation(context)),
+                              ServiceItem(
+                                title: "Abastecimiento",
+                                image:
+                                    "https://cdn-icons-png.flaticon.com/512/7541/7541900.png",
+                              ),
+                              ServiceItem(
+                                title: "Stock",
+                                image:
+                                    "https://cdn-icons-png.flaticon.com/512/5164/5164023.png",
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
@@ -126,38 +138,7 @@ class HomePage extends StatelessWidget {
                             itemBuilder: (BuildContext context, int index) {
                               final shipment =
                                   shipmentProvider.shipments[index];
-                              return Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        "${"Cargamento #${shipment.id}"} - ${shipment.name}"),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.lock_clock),
-                                        Text(
-                                            "${shipment.hour} ${shipment.date}")
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        CircleAvatar(
-                                            maxRadius: 30,
-                                            backgroundImage: NetworkImage(
-                                                shipment.profilePicture)),
-                                        Text(shipment.driver)
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              );
+                              return ShipmentCard(shipment: shipment);
                             },
                           ),
                         )

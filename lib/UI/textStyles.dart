@@ -15,4 +15,18 @@ class TextStyles {
       color: color ?? Colors.black, // Usar negro si no se proporciona un color
     );
   }
+
+  static TextStyle h5Style({Color? color, a}) {
+    return TextStyle(
+      fontSize: 16.0,
+      color: color ?? Colors.black, // Usar negro si no se proporciona un color
+    );
+  }
+
+  static TextStyle p({Color? color, a}) {
+    return TextStyle(
+      fontSize: 14.0,
+      color: color ?? Colors.black, // Usar negro si no se proporciona un color
+    );
+  }
 }

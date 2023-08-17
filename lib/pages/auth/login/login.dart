@@ -11,9 +11,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login"),
-      ),
       body: SizedBox(
         child: Stack(
           children: [

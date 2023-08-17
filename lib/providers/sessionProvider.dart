@@ -1,7 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:inventory_app/services/apiService.dart';
+import 'package:inventory_app/services/api_service.dart';
 
 import '../models/user.dart';
 
