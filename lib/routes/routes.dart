@@ -10,6 +10,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'home': (_) => const HomePage(),
     'login': (_) => const LoginPage(),
     'register': (_) => const RegisterPage(),
-    'estimation': (_) => const EstimationPage(),
+    'estimation': (_) => EstimationPage(),
   };
 }
