@@ -13,17 +13,17 @@ class EstimationPage extends StatelessWidget {
         "image": "https://cdn-icons-png.flaticon.com/512/7656/7656399.png",
         "children": [
           {
-            "icon": const Icon(Icons.macro_off),
+            "icon": const Icon(Icons.inventory),
             "title": "Revisar Control Stock",
             "route": "stock"
           },
           {
-            "icon": const Icon(Icons.macro_off),
+            "icon": const Icon(Icons.history),
             "title": "Revisar Históricos",
-            "route": "stock"
+            "route": "history"
           },
           {
-            "icon": const Icon(Icons.macro_off),
+            "icon": const Icon(Icons.donut_small_sharp),
             "title": "Proyección anual",
             "route": "stock"
           }

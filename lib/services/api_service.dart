@@ -19,11 +19,11 @@ class ApiService {
           "username": "johndoe"
         },
         {
-          "email": "juan@gmail.com",
+          "email": "paul@gmail.com",
           "id": 1,
           "isAdmin": true,
-          "lastName": "Doe",
-          "name": "John",
+          "lastName": "Sánchez",
+          "name": "Paul",
           "password": "1234",
           "profilePicture":
               "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg",
