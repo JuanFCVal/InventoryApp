@@ -9,6 +9,13 @@ class TextStyles {
     );
   }
 
+  static TextStyle h2Style({Color? color, a}) {
+    return TextStyle(
+      fontSize: 26.0,
+      color: color ?? Colors.black, // Usar negro si no se proporciona un color
+    );
+  }
+
   static TextStyle h3Style({Color? color, a}) {
     return TextStyle(
       fontSize: 20.0,

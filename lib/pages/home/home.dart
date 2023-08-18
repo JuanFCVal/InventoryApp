@@ -22,7 +22,9 @@ class HomePage extends StatelessWidget {
                     text: "Estimación de suministros",
                     icon: Icons.home,
                     onClick: () {
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, 'estimation');
+                      //Close modal
                     },
                   ),
                   ModalOptionItem(
@@ -59,10 +61,13 @@ class HomePage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        CircleAvatar(
-                            maxRadius: 60,
-                            backgroundImage: NetworkImage(
-                                sessionProvider.currentUser.profilePicture)),
+                        Hero(
+                          tag: "profilePicture",
+                          child: CircleAvatar(
+                              maxRadius: 60,
+                              backgroundImage: NetworkImage(
+                                  sessionProvider.currentUser.profilePicture)),
+                        ),
                         const SizedBox(
                           height: 0,
                         ),

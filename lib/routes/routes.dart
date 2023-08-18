@@ -4,6 +4,7 @@ import 'package:inventory_app/pages/auth/register/register.dart';
 
 import '../pages/estimation/estimation.dart';
 import '../pages/home/home.dart';
+import '../pages/stock_control/stock_control.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -11,5 +12,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'login': (_) => const LoginPage(),
     'register': (_) => const RegisterPage(),
     'estimation': (_) => EstimationPage(),
+    'stock': (_) => const StockPage()
   };
 }

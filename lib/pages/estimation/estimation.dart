@@ -2,6 +2,8 @@ import 'package:accordion/accordion.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_app/UI/colors.dart';
 
+import '../../shared/header.dart';
+
 class EstimationPage extends StatelessWidget {
   EstimationPage({super.key});
   dynamic menuOptions = {
@@ -55,63 +57,81 @@ class EstimationPage extends StatelessWidget {
   };
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.15,
-              decoration: BoxDecoration(color: ColorMap.primary),
+    return SafeArea(
+      child: Scaffold(
+          appBar: Header(
+            height: MediaQuery.of(context).size.height * 0.15,
+            title: "MEDICAMENTOS",
+          ),
+          body: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: Column(
+              children: [
+                Expanded(
+                    child: ListView.builder(
+                  itemCount: menuOptions['options'].length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final option = menuOptions['options'][index];
+                    return Accordion(
+                        maxOpenSections: 1,
+                        scaleWhenAnimating: true,
+                        openAndCloseAnimation: true,
+                        contentVerticalPadding: 0,
+                        paddingListBottom: 0,
+                        headerPadding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        children: [
+                          AccordionSection(
+                            isOpen: false,
+                            headerBackgroundColor: Colors.grey[200],
+                            headerBackgroundColorOpened: Colors.grey[200],
+                            contentBackgroundColor: Colors.yellow[200],
+                            header: Row(
+                              children: [
+                                SizedBox(
+                                  height: 35,
+                                  width: 35,
+                                  child: Image(
+                                      image: NetworkImage(
+                                    option['image'],
+                                  )),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  option['route'],
+                                  style: TextStyle(
+                                      color: ColorMap.primary,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            content: Column(
+                              children: [
+                                ...option['children'].map((child) {
+                                  return ListTile(
+                                    leading: child['icon'],
+                                    title: Text(child['title']),
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, child['route']);
+                                    },
+                                  );
+                                })
+                              ],
+                            ),
+                            contentHorizontalPadding: 10,
+                            contentBorderWidth: 1,
+                          ),
+                        ]);
+                  },
+                ))
+              ],
             ),
-            Expanded(
-                child: ListView.builder(
-              itemCount: menuOptions['options'].length,
-              itemBuilder: (BuildContext context, int index) {
-                final option = menuOptions['options'][index];
-                return Accordion(
-                    maxOpenSections: 1,
-                    scaleWhenAnimating: true,
-                    openAndCloseAnimation: true,
-                    headerPadding:
-                        const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-                    children: [
-                      AccordionSection(
-                        isOpen: false,
-                        headerBackgroundColor: Colors.grey[200],
-                        headerBackgroundColorOpened: Colors.grey[200],
-                        contentBackgroundColor: Colors.yellow[200],
-                        header: Text(
-                          option['route'],
-                          style: TextStyle(
-                              color: ColorMap.primary,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        content: Column(
-                          children: [
-                            ...option['children'].map((child) {
-                              return ListTile(
-                                leading: child['icon'],
-                                title: Text(child['title']),
-                                onTap: () {
-                                  Navigator.pushNamed(context, child['route']);
-                                },
-                              );
-                            })
-                          ],
-                        ),
-                        contentHorizontalPadding: 10,
-                        contentBorderWidth: 1,
-                      ),
-                    ]);
-              },
-            ))
-          ],
-        ),
-      ),
-    ));
+          )),
+    );
   }
 }
